@@ -187,15 +187,16 @@ section{ position: relative; }
   position: relative; display: flex; flex-direction: column; justify-content: center;
   padding: 140px 60px 80px clamp(28px, 6vw, 90px);
   background:
-    radial-gradient(1000px 500px at 15% 0%, rgba(227,30,36,.18), transparent 60%),
+    linear-gradient(90deg, rgba(20,20,22,.82), rgba(20,20,22,.52) 35%, rgba(20,20,22,.18) 100%),
+    radial-gradient(1000px 500px at 10% 0%, rgba(227,30,36,.22), transparent 20%),
     var(--charcoal-2);
   z-index: 2;
 }
 .wave-tile-bg{
-  position: absolute; inset: 0; opacity: .12; pointer-events: none;
-  background-image: url('../assets/brand/logo-mark.png');
-  background-repeat: repeat; background-size: 130px auto; background-position: -20px -20px;
-  mix-blend-mode: screen; filter: grayscale(0.2);
+  position: absolute; inset: 0; opacity: 0.98; pointer-events: none;
+  background-image: url('../assets/brand/hero2.jpeg');
+  background-position: center; background-size: cover; background-repeat: no-repeat;
+  mix-blend-mode: screen; filter: saturate(1.2) contrast(1.1) brightness(0.5);
 }
 .hero-eyebrow{ color: #fff; opacity: .85; }
 .hero-eyebrow::before{ background: var(--red); }
@@ -214,20 +215,39 @@ section{ position: relative; }
 .hero-meta div strong{ display: block; font-family: var(--font-display); font-size: 30px; color: #fff; }
 .hero-meta div span{ font-family: var(--font-accent); font-size: 11.5px; text-transform: uppercase; letter-spacing: .12em; color: rgba(255,255,255,.55); }
 
-.hero-right{ position: relative; overflow: hidden; }
-.hero-right img{
-  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 20%;
-  animation: kenburns 22s ease-in-out infinite alternate;
+.hero-right{ position: relative; overflow: hidden; background: #0b0b0d; }
+.hero-slide{
+  position: absolute; inset: 0; opacity: 0; visibility: hidden;
+  transition: opacity .8s ease, visibility 0s linear .8s;
 }
-@keyframes kenburns{ from{ transform: scale(1); } to{ transform: scale(1.09); } }
+.hero-slide.active{
+  opacity: 1; visibility: visible; transition-delay: 0s;
+}
+.hero-slide img{
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 20%;
+  animation: kenburns 14s ease-in-out infinite alternate;
+}
+@keyframes kenburns{ from{ transform: scale(1.02); } to{ transform: scale(1.12); } }
 .hero-right::after{
   content: ""; position: absolute; inset: 0;
   background: linear-gradient(100deg, var(--charcoal-2) 0%, rgba(51,51,53,.15) 22%, transparent 50%);
+  z-index: 2; pointer-events: none;
+}
+.hero-slide-dots{
+  position: absolute; right: 30px; bottom: 86px; display: flex; gap: 10px; z-index: 4;
+}
+.hero-dot{
+  width: 10px; height: 10px; border-radius: 50%; border: 1px solid rgba(255,255,255,.8);
+  background: transparent; padding: 0; box-shadow: none; cursor: pointer; transition: all .25s ease;
+}
+.hero-dot.active{
+  background: var(--red); border-color: var(--red); transform: scale(1.15);
+  box-shadow: 0 0 0 5px rgba(227,30,36,.16);
 }
 .hero-red-block{
   position: absolute; left: 0; right: 0; bottom: 0; padding: 26px 40px;
   background: linear-gradient(100deg, var(--red) 0%, rgba(227,30,36,.92) 70%, rgba(227,30,36,.75) 100%);
-  color: #fff; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
+  color: #fff; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; z-index: 4;
 }
 .hero-red-block strong{ font-family: var(--font-display); font-size: 17px; letter-spacing: .02em; }
 .hero-red-block span{ font-family: var(--font-accent); font-size: 12px; text-transform: uppercase; letter-spacing: .1em; opacity: .9; }
