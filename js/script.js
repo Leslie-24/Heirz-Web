@@ -97,6 +97,35 @@
   }, { threshold: 0.6 });
   counters.forEach(function(el){ countObserver.observe(el); });
 
+  /* ---------- hero slideshow ---------- */
+  var heroSlides = Array.prototype.slice.call(document.querySelectorAll('.hero-slide'));
+  var heroDots = Array.prototype.slice.call(document.querySelectorAll('.hero-dot'));
+  var heroSlideIndex = 0;
+  var heroSlideTimer = null;
+
+  function showHeroSlide(index){
+    if (!heroSlides.length) return;
+    heroSlideIndex = (index + heroSlides.length) % heroSlides.length;
+    heroSlides.forEach(function(slide, slideIndex){
+      slide.classList.toggle('active', slideIndex === heroSlideIndex);
+    });
+    heroDots.forEach(function(dot, dotIndex){
+      dot.classList.toggle('active', dotIndex === heroSlideIndex);
+    });
+  }
+
+  if (heroSlides.length){
+    heroDots.forEach(function(dot, index){
+      dot.addEventListener('click', function(){
+        showHeroSlide(index);
+        if (heroSlideTimer) clearInterval(heroSlideTimer);
+        heroSlideTimer = setInterval(function(){ showHeroSlide(heroSlideIndex + 1); }, 3500);
+      });
+    });
+
+    heroSlideTimer = setInterval(function(){ showHeroSlide(heroSlideIndex + 1); }, 3500);
+  }
+
   /* ---------- services: data ---------- */
   var services = window.HEIRZ_SERVICES || [];
   var grid = document.getElementById('servicesGrid');
